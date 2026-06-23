@@ -1,0 +1,14 @@
+# Mencegah directory listing
+Options -Indexes
+
+# Lindungi file sensitif
+<FilesMatch "\.(sql|md|env)$">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
+
+# Default file
+DirectoryIndex index.php
+
+# Aktifkan rewrite jika diperlukan untuk clean URL (opsional)
+RewriteEngine On

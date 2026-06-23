@@ -1,0 +1,7 @@
+# Keamanan folder upload — cegah eksekusi PHP
+<FilesMatch "\.php$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+Options -Indexes
