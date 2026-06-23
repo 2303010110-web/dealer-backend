@@ -66,6 +66,51 @@ $mobils = $stmtMobil->get_result();
 
 // Ambil semua tipe unik
 $tipeList = $conn->query("SELECT DISTINCT tipe FROM mobil WHERE status='aktif' ORDER BY tipe");
+<<<<<<< HEAD
+=======
+
+// Fungsi untuk mendapatkan path gambar yang benar
+function getGambarPath($gambar) {
+    if (empty($gambar)) {
+        return '';
+    }
+    
+    // Path yang akan dicek
+    $pathsToCheck = [
+        $gambar, // Path langsung dari database
+        'uploads/mobil/' . basename($gambar), // Uploads folder
+        '../uploads/mobil/' . basename($gambar), // Dari folder atas
+        '../' . $gambar, // Dari folder atas dengan path database
+        'assets/images/' . basename($gambar), // Assets folder
+        'images/' . basename($gambar), // Images folder
+    ];
+    
+    // Cek setiap kemungkinan path
+    foreach ($pathsToCheck as $path) {
+        if (!empty($path) && file_exists(__DIR__ . '/' . $path)) {
+            return $path;
+        }
+    }
+    
+    // Jika path dimulai dengan 'uploads/' dan tidak ditemukan, coba dengan '../'
+    if (strpos($gambar, 'uploads/') === 0) {
+        $altPath = '../' . $gambar;
+        if (file_exists(__DIR__ . '/' . $altPath)) {
+            return $altPath;
+        }
+    }
+    
+    // Jika tidak ditemukan sama sekali, return path asli
+    return $gambar;
+}
+
+// Fungsi untuk format rupiah jika belum ada
+if (!function_exists('rupiah')) {
+    function rupiah($angka) {
+        return 'Rp ' . number_format($angka, 0, ',', '.');
+    }
+}
+>>>>>>> 20c1e223d846345e893658d18c2bd0949006bcee
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -96,12 +141,20 @@ $tipeList = $conn->query("SELECT DISTINCT tipe FROM mobil WHERE status='aktif' O
     .filter-group select,.filter-group input[type=number]{width:100%;padding:10px 14px;border:1.5px solid var(--lighter);border-radius:12px;font-size:14px;color:var(--dark);font-family:'Poppins',sans-serif;background:var(--lighter);transition:.3s}
     .filter-group select:focus,.filter-group input:focus{outline:none;border-color:var(--primary);background:white}
     .filter-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+<<<<<<< HEAD
     .filter-chip{padding:6px 14px;border-radius:50px;border:1.5px solid var(--lighter);background:white;font-size:12px;color:var(--gray);cursor:pointer;transition:.25s;font-family:'Poppins',sans-serif}
+=======
+    .filter-chip{padding:6px 14px;border-radius:50px;border:1.5px solid var(--lighter);background:white;font-size:12px;color:var(--gray);cursor:pointer;transition:.25s;font-family:'Poppins',sans-serif;text-decoration:none;display:inline-block}
+>>>>>>> 20c1e223d846345e893658d18c2bd0949006bcee
     .filter-chip.active,.filter-chip:hover{background:var(--primary);border-color:var(--primary);color:white}
     .price-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     .filter-btn{width:100%;padding:12px;background:linear-gradient(135deg,#dc2626,#ef4444);color:white;border:none;border-radius:14px;font-size:14px;font-weight:600;cursor:pointer;transition:.3s;font-family:'Poppins',sans-serif}
     .filter-btn:hover{opacity:.88;transform:translateY(-1px)}
+<<<<<<< HEAD
     .filter-reset{width:100%;padding:10px;background:var(--lighter);color:var(--gray);border:none;border-radius:14px;font-size:13px;cursor:pointer;transition:.3s;margin-top:10px;font-family:'Poppins',sans-serif}
+=======
+    .filter-reset{width:100%;padding:10px;background:var(--lighter);color:var(--gray);border:none;border-radius:14px;font-size:13px;cursor:pointer;transition:.3s;margin-top:10px;font-family:'Poppins',sans-serif;text-align:center;display:block;text-decoration:none}
+>>>>>>> 20c1e223d846345e893658d18c2bd0949006bcee
     .filter-reset:hover{background:#e5e7eb}
     .mobil-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:14px}
     .result-info{font-size:14px;color:var(--gray)}
@@ -109,6 +162,30 @@ $tipeList = $conn->query("SELECT DISTINCT tipe FROM mobil WHERE status='aktif' O
     .sort-select{padding:10px 16px;border:1.5px solid var(--lighter);border-radius:12px;font-size:14px;font-family:'Poppins',sans-serif;color:var(--dark);background:white;cursor:pointer}
     .sort-select:focus{outline:none;border-color:var(--primary)}
     .mobil-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+<<<<<<< HEAD
+=======
+    
+    /* Car Card Styles */
+    .car-card{background:white;border-radius:20px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.08);transition:all .35s;position:relative}
+    .car-card:hover{transform:translateY(-8px);box-shadow:0 12px 40px rgba(0,0,0,.12)}
+    .car-img{position:relative;overflow:hidden;height:200px;background:#f1f5f9}
+    .car-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+    .car-card:hover .car-img img{transform:scale(1.05)}
+    .car-badge{position:absolute;top:14px;left:14px;background:linear-gradient(135deg,#dc2626,#ef4444);color:white;padding:4px 14px;border-radius:50px;font-size:11px;font-weight:600;z-index:2;text-transform:uppercase;letter-spacing:.5px}
+    .car-overlay{position:absolute;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .35s}
+    .car-card:hover .car-overlay{opacity:1}
+    .car-info{padding:18px 20px 20px}
+    .car-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .car-type{font-size:12px;font-weight:600;color:var(--primary);background:#fef2f2;padding:2px 12px;border-radius:50px}
+    .car-year{font-size:12px;color:var(--gray)}
+    .car-name{font-size:17px;font-weight:700;color:var(--dark);margin-bottom:10px;line-height:1.3}
+    .car-specs{display:flex;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+    .car-specs span{font-size:12px;color:var(--gray);display:flex;align-items:center;gap:5px}
+    .car-specs span i{color:var(--primary);font-size:11px}
+    .car-footer{display:flex;justify-content:space-between;align-items:center;padding-top:14px;border-top:1.5px solid var(--lighter)}
+    .car-price{font-size:18px;font-weight:800;color:var(--primary)}
+    
+>>>>>>> 20c1e223d846345e893658d18c2bd0949006bcee
     .no-result{text-align:center;padding:70px 30px;background:white;border-radius:24px;box-shadow:var(--shadow)}
     .no-result i{font-size:60px;color:#e5e7eb;margin-bottom:20px;display:block}
     .no-result h3{font-size:20px;color:var(--dark);margin-bottom:10px}
@@ -119,6 +196,15 @@ $tipeList = $conn->query("SELECT DISTINCT tipe FROM mobil WHERE status='aktif' O
     .pagination a:hover{background:var(--primary);color:white}
     .pagination .active{background:linear-gradient(135deg,#dc2626,#ef4444);color:white;font-weight:700}
     .pagination .disabled{background:#f3f4f6;color:#d1d5db;cursor:not-allowed}
+<<<<<<< HEAD
+=======
+    
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border-radius:10px;font-weight:600;font-size:13px;text-decoration:none;transition:all .3s;border:none;cursor:pointer;font-family:'Poppins',sans-serif}
+    .btn-primary{background:linear-gradient(135deg,#dc2626,#ef4444);color:white}
+    .btn-primary:hover{opacity:.88;transform:translateY(-2px);box-shadow:0 8px 24px rgba(220,38,38,.3)}
+    .btn-sm{padding:6px 16px;font-size:12px}
+    
+>>>>>>> 20c1e223d846345e893658d18c2bd0949006bcee
     @media(max-width:900px){.mobil-layout{grid-template-columns:1fr}.filter-sidebar{position:static}.mobil-grid{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:600px){.mobil-grid{grid-template-columns:1fr}}
   </style>
@@ -156,7 +242,14 @@ $tipeList = $conn->query("SELECT DISTINCT tipe FROM mobil WHERE status='aktif' O
             <label><i class="fa-solid fa-car"></i> Tipe Kendaraan</label>
             <div class="filter-chips">
               <a href="mobil.php" class="filter-chip <?= !$tipe ? 'active' : '' ?>">Semua</a>
+<<<<<<< HEAD
               <?php while ($t = $tipeList->fetch_assoc()): ?>
+=======
+              <?php 
+              $tipeList->data_seek(0);
+              while ($t = $tipeList->fetch_assoc()): 
+              ?>
+>>>>>>> 20c1e223d846345e893658d18c2bd0949006bcee
               <a href="?tipe=<?= urlencode($t['tipe']) ?><?= $q ? '&q='.urlencode($q) : '' ?>"
                  class="filter-chip <?= $tipe === $t['tipe'] ? 'active' : '' ?>">
                 <?= sanitize($t['tipe']) ?>
@@ -185,7 +278,11 @@ $tipeList = $conn->query("SELECT DISTINCT tipe FROM mobil WHERE status='aktif' O
 
           <input type="hidden" name="sort" id="sortHidden" value="<?= $sort ?>">
           <button type="submit" class="filter-btn"><i class="fa-solid fa-filter"></i> Terapkan Filter</button>
+<<<<<<< HEAD
           <a href="mobil.php"><button type="button" class="filter-reset"><i class="fa-solid fa-rotate-left"></i> Reset Filter</button></a>
+=======
+          <a href="mobil.php" class="filter-reset"><i class="fa-solid fa-rotate-left"></i> Reset Filter</a>
+>>>>>>> 20c1e223d846345e893658d18c2bd0949006bcee
         </form>
       </aside>
 
@@ -206,13 +303,31 @@ $tipeList = $conn->query("SELECT DISTINCT tipe FROM mobil WHERE status='aktif' O
 
         <?php if ($mobils->num_rows > 0): ?>
         <div class="mobil-grid">
+<<<<<<< HEAD
           <?php while ($m = $mobils->fetch_assoc()): ?>
+=======
+          <?php while ($m = $mobils->fetch_assoc()): 
+            // Dapatkan path gambar yang benar
+            $gambarPath = getGambarPath($m['gambar']);
+            
+            // Cek apakah file benar-benar ada
+            $fileExists = !empty($gambarPath) && file_exists(__DIR__ . '/' . $gambarPath);
+          ?>
+>>>>>>> 20c1e223d846345e893658d18c2bd0949006bcee
           <div class="car-card animate-on-scroll">
             <?php if ($m['badge']): ?>
             <div class="car-badge"><?= sanitize($m['badge']) ?></div>
             <?php endif; ?>
             <div class="car-img">
+<<<<<<< HEAD
               <img src="<?= imgUrl($m['gambar']) ?>" alt="<?= sanitize($m['nama_mobil']) ?>" loading="lazy">
+=======
+              <?php if ($fileExists): ?>
+                <img src="<?= $gambarPath ?>" alt="<?= sanitize($m['nama_mobil']) ?>" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22200%22><rect fill=%22%23f1f5f9%22 width=%22400%22 height=%22200%22/><text x=%22120%22 y=%22110%22 font-size=%2220%22 fill=%22%239ca3af%22 font-family=%22Poppins%22>No Image</text></svg>'">
+              <?php else: ?>
+                <img src="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22200%22><rect fill=%22%23f1f5f9%22 width=%22400%22 height=%22200%22/><text x=%22120%22 y=%22110%22 font-size=%2220%22 fill=%22%239ca3af%22 font-family=%22Poppins%22>No Image</text></svg>" alt="No Image">
+              <?php endif; ?>
+>>>>>>> 20c1e223d846345e893658d18c2bd0949006bcee
               <div class="car-overlay">
                 <a href="detail-mobil.php?id=<?= $m['id'] ?>" class="btn btn-primary btn-sm">
                   <i class="fa-solid fa-eye"></i> Lihat Detail
@@ -287,6 +402,31 @@ function changeSort(v) {
   document.getElementById('sortHidden').value = v;
   document.getElementById('filterForm').submit();
 }
+<<<<<<< HEAD
 </script>
 </body>
 </html>
+=======
+
+// Animasi scroll
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.animate-on-scroll');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    });
+    cards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'all 0.6s ease';
+        observer.observe(card);
+    });
+});
+</script>
+</body>
+</html>
+>>>>>>> 20c1e223d846345e893658d18c2bd0949006bcee

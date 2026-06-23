@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🚗 Dealer Mitsubishi — Website PHP
 
 Website dealer mobil Mitsubishi berbasis PHP + MySQL dengan panel admin lengkap.
@@ -125,3 +126,6 @@ mitsubishi/
 - Password admin disimpan dengan **enkripsi MD5**
 - Folder `assets/uploads/mobil/` harus **writable** oleh web server
 - File PHP tidak bisa dieksekusi di dalam folder uploads (dilindungi `.htaccess`)
+=======
+
+>>>>>>> 20c1e223d846345e893658d18c2bd0949006bcee

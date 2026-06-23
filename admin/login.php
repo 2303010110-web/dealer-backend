@@ -68,6 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     .particles{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden}
     .particle{position:absolute;width:4px;height:4px;background:rgba(220,38,38,.3);border-radius:50%;animation:float linear infinite}
     @keyframes float{0%{transform:translateY(100vh) rotate(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-100px) rotate(720deg);opacity:0}}
+<<<<<<< HEAD
 
     /* Info akun default */
     .info-akun{background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.3);border-radius:14px;padding:14px 18px;margin-bottom:22px}
@@ -78,6 +79,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     .info-akun-val{font-size:12px;color:rgba(255,255,255,.85);font-family:monospace;background:rgba(255,255,255,.07);padding:3px 10px;border-radius:6px;letter-spacing:.5px;font-weight:600}
     .info-akun-copy{background:none;border:none;color:rgba(165,180,252,.6);cursor:pointer;font-size:11px;padding:2px 6px;border-radius:4px;transition:.2s}
     .info-akun-copy:hover{color:#a5b4fc;background:rgba(99,102,241,.2)}
+=======
+>>>>>>> 20c1e223d846345e893658d18c2bd0949006bcee
   </style>
 </head>
 <body>
@@ -134,6 +137,7 @@ function togglePwd() {
   else { inp.type = 'password'; icon.className = 'fa-solid fa-eye'; }
 }
 
+<<<<<<< HEAD
 function copyText(text, btnId) {
   navigator.clipboard.writeText(text).then(() => {
     const btn = document.getElementById(btnId);
@@ -152,6 +156,8 @@ function copyText(text, btnId) {
   });
 }
 
+=======
+>>>>>>> 20c1e223d846345e893658d18c2bd0949006bcee
 // Floating particles
 const container = document.getElementById('particles');
 for (let i = 0; i < 18; i++) {
